@@ -20,7 +20,7 @@ Additional Details:
 - [Official development doc from Heltec](https://resource.heltec.cn/download/Wireless_Tracker/Wireless_Tracker%20_1.1.pdf)
 - [Pin diagram](https://cdn.shopify.com/s/files/1/0084/7465/6845/files/diagram.png?v=1694250615)
 - [MicroPython firmware for ESP32](https://micropython.org/download/ESP32_GENERIC_S3/)
-- [Arduino library from Heltec](https://github.com/HelTecAutomation/Heltec_ESP32/tree/master)
+- [Arduino library from Heltec](https://github.com/HelTecAutomation/Heltec_ESP32)
 
 ## (2) [Heltec Automation Wifi LoRa V3](https://heltec.org/project/wifi-lora-32-v3/)
 
@@ -34,12 +34,20 @@ This board contains following components:
 - Integrated [CP2102](https://www.silabs.com/interface/usb-bridges/classic/device.cp2102?tab=specs) USB to serial port chip,
 - Onboard 32MByte Flash
 
+Additional Details:
+
+- [Official development doc from Heltec](https://resource.heltec.cn/download/WiFi_LoRa_32_V3/HTIT-WB32LA_V3(Rev1.1).pdf)
+- [Official webpage from Heltec](https://heltec.org/project/wifi-lora-32-v3/)
+- [Pin diagram](https://heltec.org/wp-content/uploads/2023/09/wifi-lora-32-pin_map.png)
+- [MicroPython firmware for ESP32](https://micropython.org/download/ESP32_GENERIC_S3/)
+- [CircuitPython firmware for the board](https://circuitpython.org/board/heltec_esp32s3_wifi_lora_v3/)
+- [Arduino library from Heltec](https://github.com/HelTecAutomation/Heltec_ESP32)
 
 # Software and Applications
 
 Below we list the applications, their language, and necessary library dependencies to get them working.
 
-## Base software
+## Base Python software
 
 - Heltec Wireless Tracker supports MicroPython only. Its firmware can be found [here](https://micropython.org/download/ESP32_GENERIC_S3/).
 - Heltec Wifi LoRa V3 board supports both MicroPython (shared above) and CircuitPython that can be found [here](https://circuitpython.org/board/heltec_esp32s3_wifi_lora_v3/).
@@ -54,6 +62,11 @@ pip install esptool.py
 # Find the port under /dev
 esptool.py --chip esp32s3 --port <port> write_flash -z 0 <downloaded_file>
 ```
+
+## Base Arduino software
+
+- For Heltec Wireless Tracker, select `Heltec Wireless Tracker` in Boards.
+- For Heltec Wifi LoRa V3, select `Heltec WiFi LoRa 32 (v3)` in Boards.
 
 ## Applications
 
