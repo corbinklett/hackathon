@@ -108,3 +108,52 @@ esptool.py --chip esp32s3 --port <port> write_flash -z 0 <downloaded_file>
 | **GPS** | [gps-basic](examples/heltec-wireless-tracker-v1.1/python/gps_basic.micropy.py) | Heltec Wireless Tracker | MicroPython | Standard MicroPython Build |
 | | [gps-message-parser](examples/heltec-wireless-tracker-v1.1/python/gps_parser.micropy.py) | Heltec Wireless Tracker | MicroPython | Copy [micropyGPS.py](https://github.com/inmcm/micropyGPS) onto device |
 | | [gps-test](examples/heltec-wireless-tracker-v1.1/arduino/GPSDisplayOnTFT/) | Heltec Wireless Tracker | Arduino | [Heltec_ESP32](https://github.com/HelTecAutomation/Heltec_ESP32) |
+
+
+# Using CodeMetal transpiler
+
+The key advantange of programming IoT applications in MicroPython or CircuitPython is quick prototyping, but performance of those Python applications on the IoT hardware is typically slow. Same applications programmed in Arduino C are typically much faster on the IoT hardware,but programming in Arduino C (with details such as pointers, etc.) is cumbersome. This is where transpilation software built by us at [CodeMetal](https://www.codemetal.ai/) steps in. We have deployed our MicroPython to Arduino C SDK and CircuitPython to Arduino C SDK pipeline in cloud. To connect with these pipelines, we have developed a command line based tool that feeds MicroPython or CircuitPython code to the pipeline and fetches corresponding Arduino C code for them. Below we show sample usage of this tool named [`micropy2c.py`](tools/micropy2c.py).
+
+## Usage
+
+```
+$ python tools/micropy2c.py -h
+usage: micropy2c [-h] [-d] [-o OUTPUT_DIR] [-l {micropython,circuitpython}] [-u HOST] [-p PORT] [-v]
+                 {heltec-wireless-tracker,heltec-wifi-lora-v3} source_file_or_dir
+
+Translate MicroPython or CircuitPython program(s) to Arduino C SDK for ESP32 boards from Heltec Automation.
+
+positional arguments:
+  {heltec-wireless-tracker,heltec-wifi-lora-v3}
+                        Heltec board for which to generate Arduino C code
+  source_file_or_dir    Python program file or a dir containing Python programs
+
+options:
+  -h, --help            show this help message and exit
+  -d, --source-dir      Input is a directory containing Python source files   [Default: False]
+  -o OUTPUT_DIR, --output-dir OUTPUT_DIR
+                        Directory to store generated Arduino C files          [Default: /tmp/out]
+  -l {micropython,circuitpython}, --source-lang {micropython,circuitpython}
+                        Language of Python program                            [Default: micropython]
+  -u HOST, --host HOST  Translation API host                                  [Default: http://localhost]
+  -p PORT, --port PORT  Translation API port                                  [Default: 8080]
+  -v, --verbose         Prints response details.                              [Default: False]
+```
+
+## Sample examples
+
+Below we demonstrate how to transpile single CircuitPython program into Arduino C programs.
+First, we specify the board that we want to obtain Arduino C code for. Then we specify an output directory to store generated C code.
+We also specify the CircuitPython program that we want to transpile. The transpilation request is sent to CodeMetal transpiler deployed at IP address `http://dummy.url` and port `8080`.
+
+```
+python tools/micropy2c.py heltec-wifi-lora-v3 -o /tmp/heltec_wifi_lora_v3 -l circuitpython examples/heltec-wifi-lora-v3/python/display_hello_world.circuitpy.py -h http://dummy.url -p 8080
+```
+
+Below we demonstrate how to transpile all Python programs from a directory into corresponding Arduino C programs.
+Only additional option that we provide is `-d` and the input then is `examples/heltec-wifi-lora-v3/python`, which is
+a directory containing Python programs.
+
+```
+python tools/micropy2c.py -o /tmp/heltec_wifi_lora heltec-wifi-lora-v3 examples/heltec-wifi-lora-v3/python -d -h http://dummy.url -p 8080
+```
