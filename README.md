@@ -142,6 +142,8 @@ options:
 
 ## Sample examples
 
+### Transpiling single Python program
+
 Below we demonstrate how to transpile single CircuitPython program into Arduino C programs.
 First, we specify the board that we want to obtain Arduino C code for. Then we specify an output directory to store generated C code.
 We also specify the CircuitPython program that we want to transpile. The transpilation request is sent to CodeMetal transpiler deployed at IP address `http://dummy.url` and port `8080`.
@@ -150,6 +152,16 @@ We also specify the CircuitPython program that we want to transpile. The transpi
 python tools/micropy2c.py heltec-wifi-lora-v3 -o /tmp/heltec_wifi_lora_v3 -l circuitpython examples/heltec-wifi-lora-v3/python/display_hello_world.circuitpy.py -h http://dummy.url -p 8080
 ```
 
+Directory `/tmp/heltec_wifi_lora_v3` should contain `display_hello_world.circuitpy/display_hello_world.circuitpy.ino` containing Arduino C code. This code can be compiled using following command:
+
+```
+arduino-cli compile -b esp32:esp32:heltec_wifi_lora_v3 /tmp/heltec_wifi_lora_v3/display_hello_world.circuitpy
+```
+
+NOTE: You may see some compilation errors if necessary Arduino boards/libraries are not installed.
+
+### Batch transpilation of Python programs
+
 Below we demonstrate how to transpile all Python programs from a directory into corresponding Arduino C programs.
 Only additional option that we provide is `-d` and the input then is `examples/heltec-wifi-lora-v3/python`, which is
 a directory containing Python programs.
@@ -157,3 +169,5 @@ a directory containing Python programs.
 ```
 python tools/micropy2c.py -o /tmp/heltec_wifi_lora heltec-wifi-lora-v3 examples/heltec-wifi-lora-v3/python -d -h http://dummy.url -p 8080
 ```
+
+Similar to the output of transpiling single Python program, the output of batch transpilation will be a bunch of directories under `/tmp/heltec_wifi_lora`. You can follow steps mentioned above to compile them individually.
