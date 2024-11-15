@@ -82,27 +82,29 @@ esptool.py --chip esp32s3 --port <port> write_flash -z 0 <downloaded_file>
 
 | Component  | File  |  Board | Language | Necessary software |
 | :---- | :---- | :---  | :---- | :--- |
-|  **Display** | [hello_world_micropy](examples/heltec-wireless-tracker-v1.1/python/display_hello_world_micropy.py)  | Heltec Wireless Tracker    |    MicroPython      | [MicroPython-ST7735](https://github.com/boochow/MicroPython-ST7735), [sysfont.py](https://github.com/GuyCarver/MicroPython/blob/master/lib/sysfont.py) |
+|  **Display** | [hello_world_micropy](examples/heltec-wireless-tracker-v1.1/python/display_hello_world.micropy.py)  | Heltec Wireless Tracker    |    MicroPython      | [MicroPython-ST7735](https://github.com/boochow/MicroPython-ST7735), [sysfont.py](https://github.com/GuyCarver/MicroPython/blob/master/lib/sysfont.py) |
+| | [hello_world_micropy](examples/heltec-wifi-lora-v3/python/display_hello_world.micropy.py) | Heltec Wifi LoRa V3 | MicroPython | [`ssd1306`](https://github.com/stlehmann/micropython-ssd1306) (_Install through Thonny_) |
+| | [hello_world_circuitpy](examples/heltec-wifi-lora-v3/python/display_hello_world.circuitpy.py) | Heltec Wifi LoRa V3 | CircuitPython | [`adafruit-circuitpython-display-text`](https://pypi.org/project/adafruit-circuitpython-display-text/) |
 |  | [display-demo](examples/heltec-wireless-tracker-v1.1/arduino/display-demo/)| Both boards | Arduino | [heltec-unofficial](https://github.com/ropg/heltec_esp32_lora_v3/) or [TFT_eSPI](https://github.com/Bodmer/TFT_eSPI) [(Installation)](https://github.com/ropg/heltec_esp32_lora_v3/tree/main?tab=readme-ov-file#1-install-this-library) |
 |  | [simple-demo](examples/heltec-wireless-tracker-v1.1/arduino/simple-demo/)| Both boards | Arduino | [Heltec_ESP32](https://github.com/HelTecAutomation/Heltec_ESP32) or [TFT_eSPI](https://github.com/Bodmer/TFT_eSPI) [(Installation)](https://github.com/HelTecAutomation/Heltec_ESP32?tab=readme-ov-file#how-to-install-this-library)|
-| | [hello_world_micropy](examples/heltec-wifi-lora-v3/python/display_hello_world_micropy.py) | Heltec Wifi LoRa V3 | MicroPython | [`ssd1306`](https://github.com/stlehmann/micropython-ssd1306) (_Install through Thonny_) |
-| | [hello_world_circuitpy](examples/heltec-wifi-lora-v3/python/display_hello_world_circuitpy.py) | Heltec Wifi LoRa V3 | CircuitPython | [`adafruit-circuitpython-display-text`](https://pypi.org/project/adafruit-circuitpython-display-text/) |
 | | | | | |
-| **Wifi** | [wifi_scan.py](examples/heltec-wireless-tracker-v1.1/python/wifi_scan.py) | Heltec Wireless Tracker | MicroPython | Standard MicroPython Build |
-| | [wifi_ap.py](examples/heltec-wireless-tracker-v1.1/python/wifi_ap.py) | Heltec Wireless Tracker | MicroPython | Standard MicroPython Build |
-| | [wifi_download.py](examples/heltec-wireless-tracker-v1.1/python/wifi_download.py) | Heltec Wireless Tracker | MicroPython | Standard MicroPython Build |
-| | [wifi_packet_monitor.py](examples/heltec-wifi-lora-v3/python/wifi_packer_monitor.py) | Heltec Wifi LoRa V3 | CircuitPython | Standard CircuitPython Build |
-| | [wifi_packet_sniffer.py](examples/heltec-wifi-lora-v3/python/wifi_packer_sniffer.py) | Heltec Wifi LoRa V3 | CircuitPython | **Special CircuitPython Build** |
+| **Wifi** | [wifi_scan.py](examples/heltec-wireless-tracker-v1.1/python/wifi_scan.micropy.py) | Heltec Wireless Tracker | MicroPython | Standard MicroPython Build |
+| | [wifi_ap.py](examples/heltec-wireless-tracker-v1.1/python/wifi_ap.micropy.py) | Heltec Wireless Tracker | MicroPython | Standard MicroPython Build |
+| | [wifi_download.py](examples/heltec-wireless-tracker-v1.1/python/wifi_download.micropy.py) | Heltec Wireless Tracker | MicroPython | Standard MicroPython Build |
+| | [wifi_packet_monitor.py](examples/heltec-wifi-lora-v3/python/wifi_packer_monitor.circuitpy.py) | Heltec Wifi LoRa V3 | CircuitPython | Standard CircuitPython Build |
+| | [wifi_packet_sniffer.py](examples/heltec-wifi-lora-v3/python/wifi_packet_sniffer.circuitpy.py) | Heltec Wifi LoRa V3 | CircuitPython | [**Special CircuitPython Build**](firmware/heltec-wifi-lora-v3.special_circuitpy.firmware.bin) |
 | | [wifi-scan](examples/heltec-wifi-lora-v3/arduino/WiFiScan/) | Heltec Wifi LoRa V3 | Arduino | [Official Arduino wifi API](https://docs.arduino.cc/libraries/wifi/) |
 | | [wifi-client-connect](examples/heltec-wifi-lora-v3/arduino/WiFiClientConnect/) | Heltec Wifi LoRa V3 | Arduino | [Official Arduino wifi API](https://docs.arduino.cc/libraries/wifi/) |
 | | | | | |
-| **LoRa** | [lora_sender.py](examples/heltec-wireless-tracker-v1.1/python/lora_sender_micropy.py) | Both boards | MicroPython | [micropysx1262x](https://github.com/ehong-tl/micropySX126X) (Requires [license](https://docs.heltec.org/general/how_to_use_license.html))|
-| | [lora_receiver.py](examples/heltec-wireless-tracker-v1.1/python/lora_receiver_micropy.py) | Both boards | MicroPython |[micropysx1262x](https://github.com/ehong-tl/micropySX126X) (Requires [license](https://docs.heltec.org/general/how_to_use_license.html))|
+| **LoRa** | [lora_sender.py](examples/heltec-wireless-tracker-v1.1/python/lora_sender.micropy.py) | Both boards | MicroPython | [micropysx1262x](https://github.com/ehong-tl/micropySX126X) (Requires [license](https://docs.heltec.org/general/how_to_use_license.html))|
+| | [lora_receiver.py](examples/heltec-wireless-tracker-v1.1/python/lora_receiver.micropy.py) | Both boards | MicroPython |[micropysx1262x](https://github.com/ehong-tl/micropySX126X) (Requires [license](https://docs.heltec.org/general/how_to_use_license.html))|
 | | [lora-sender](examples/heltec-wireless-tracker-v1.1/arduino/lora-sender/)| Both boards | Arduino | [Heltec_ESP32](https://github.com/HelTecAutomation/Heltec_ESP32), [SX126x-Arduino](https://github.com/beegee-tokyo/SX126x-Arduino/), [(Installation)](https://github.com/HelTecAutomation/Heltec_ESP32?tab=readme-ov-file#how-to-install-this-library) (Requires [license](https://docs.heltec.org/general/how_to_use_license.html)) |
 | | [lora-receiver](examples/heltec-wireless-tracker-v1.1/arduino/lora-receiver/)| Both boards | Arduino | [Heltec_ESP32](https://github.com/HelTecAutomation/Heltec_ESP32), [SX126x-Arduino](https://github.com/beegee-tokyo/SX126x-Arduino/), [(Installation)](https://github.com/HelTecAutomation/Heltec_ESP32?tab=readme-ov-file#how-to-install-this-library) (Requires [license](https://docs.heltec.org/general/how_to_use_license.html))|
 | | | | | |
-| **BLE** | [ble_connect_and_ad.py](examples/heltec-wifi-lora-v3/python/ble_connect_and_ad.py)| Heltec Wifi LoRa V3| CircuitPython | [`adafruit-circuitpython-ble-adafruit`](https://pypi.org/project/adafruit-circuitpython-ble-adafruit/) |
+| **BLE** | [ble_connect_and_ad.py](examples/heltec-wifi-lora-v3/python/ble_connect_and_ad.circuitpy.py)| Heltec Wifi LoRa V3| CircuitPython | [`adafruit-circuitpython-ble-adafruit`](https://pypi.org/project/adafruit-circuitpython-ble-adafruit/) |
 | | [ble-scanner](examples/heltec-wifi-lora-v3/arduino/Beacon_Scanner/) | Heltec Wifi LoRa V3 | Arduino | [Official Arduino ESP32 BLE library](https://docs.arduino.cc/libraries/esp32-ble-arduino/) |
 | | [ble-client](examples/heltec-wifi-lora-v3/arduino/Client/) | Both boards | Arduino | [Official Arduino ESP32 BLE library](https://docs.arduino.cc/libraries/esp32-ble-arduino/) |
 | | | | | |
-| **GPS** | [gps-test](examples/heltec-wireless-tracker-v1.1/arduino/GPSDisplayOnTFT/) | Heltec Wireless Tracker | Arduino | [Heltec_ESP32](https://github.com/HelTecAutomation/Heltec_ESP32) |
+| **GPS** | [gps-basic](examples/heltec-wireless-tracker-v1.1/python/gps_basic.micropy.py) | Heltec Wireless Tracker | MicroPython | Standard MicroPython Build |
+| | [gps-message-parser](examples/heltec-wireless-tracker-v1.1/python/gps_parser.micropy.py) | Heltec Wireless Tracker | MicroPython | Copy [micropyGPS.py](https://github.com/inmcm/micropyGPS) onto device |
+| | [gps-test](examples/heltec-wireless-tracker-v1.1/arduino/GPSDisplayOnTFT/) | Heltec Wireless Tracker | Arduino | [Heltec_ESP32](https://github.com/HelTecAutomation/Heltec_ESP32) |
