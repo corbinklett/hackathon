@@ -46,11 +46,12 @@ parser = argparse.ArgumentParser(
             description='Translate MicroPython or CircuitPython program(s) '
                         'to Arduino C SDK for ESP32 boards from Heltec '
                         'Automation.')
-parser.add_argument('board',
+parser.add_argument('-b', '--board',
                     help='Heltec board for which to generate Arduino C code',
                     choices=['heltec-wireless-tracker', 'heltec-wifi-lora-v3'])
-parser.add_argument('source_file_or_dir', help='Python program file or a dir '
-                    'containing Python programs')
+parser.add_argument('-s', '--source-file',
+                    help='Path to Micro/Circuit Python program file',
+                    default='')
 parser.add_argument('-d', '--source-dir',
                     help='Input is a directory containing Python source files',
                     action='store_true')
@@ -70,10 +71,10 @@ parser.add_argument('-v', '--verbose', help='Prints response details.',
 args = parser.parse_args()
 
 # Sanity checks
-if args.source_dir and not os.path.isdir(args.source_file_or_dir):
-    print(f'ERROR: {args.source_file_or_dir} is not a directory')
+if args.source_file != '' and args.source_dir and not os.path.isdir(args.source_dir):
+    print(f'ERROR: {args.source_dir} is not a directory')
     sys.exit(1)
-if args.source_dir is False and not os.path.isfile(args.source_file_or_dir):
+if args.source_file != '' and not os.path.isfile(args.source_file):
     print(f'ERROR: {args.source_file_or_dir} is not a file')
     sys.exit(1)
 
@@ -88,11 +89,11 @@ print(f'Outputs will be stored in {args.output_dir}')
 # Generate a list of Python programs to translate to Arduino C.
 # Not a recursive search - if recursive is needed, set it to True.
 if args.source_dir:
-    py_prog_paths = [os.path.join(args.source_file_or_dir, py_prog)
+    py_prog_paths = [os.path.join(args.source_dir, py_prog)
                      for py_prog in glob.glob("*.py",
-                                              root_dir=args.source_file_or_dir)]
+                                              root_dir=args.source_dir)]
 else:
-    py_prog_paths = [args.source_file_or_dir]
+    py_prog_paths = [args.source_file]
 
 for py_prog_path in py_prog_paths:
     print(f'Translating {py_prog_path}..')
