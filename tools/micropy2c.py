@@ -48,16 +48,20 @@ parser = argparse.ArgumentParser(
                         'Automation.')
 parser.add_argument('-b', '--board',
                     help='Heltec board for which to generate Arduino C code',
-                    choices=['heltec-wireless-tracker', 'heltec-wifi-lora-v3'])
+                    choices=['heltec-wireless-tracker', 'heltec-wifi-lora-v3'],
+                    required=True)
 parser.add_argument('-s', '--source-file',
                     help='Path to Micro/Circuit Python program file',
-                    default='')
+                    default='',
+                    required=False)
 parser.add_argument('-d', '--source-dir',
                     help='Input is a directory containing Python source files',
-                    action='store_true')
+                    default='',
+                    required=False)
 parser.add_argument('-o', '--output-dir',
                     help='Directory to store generated Arduino C files',
-                    default='/tmp/out')
+                    default='/tmp/out',
+                    required=True)
 parser.add_argument('-l', '--source-lang',
                     help='Language of Python program',
                     choices=['micropython', 'circuitpython'],
@@ -71,10 +75,16 @@ parser.add_argument('-v', '--verbose', help='Prints response details.',
 args = parser.parse_args()
 
 # Sanity checks
-if args.source_file != '' and args.source_dir and not os.path.isdir(args.source_dir):
+if args.source_file == '' and args.source_dir == '':
+    print(f'ERROR: Must provide either source_file or source_dir')
+    sys.exit(1)
+if args.output_dir == '':
+    print(f'ERROR: Must provide output directory')
+    sys.exit(1)
+if args.source_file == '' and args.source_dir != '' and not os.path.isdir(args.source_dir):
     print(f'ERROR: {args.source_dir} is not a directory')
     sys.exit(1)
-if args.source_file != '' and not os.path.isfile(args.source_file):
+if args.source_dir == '' and args.source_file != '' and not os.path.isfile(args.source_file):
     print(f'ERROR: {args.source_file_or_dir} is not a file')
     sys.exit(1)
 
@@ -88,7 +98,7 @@ print(f'Outputs will be stored in {args.output_dir}')
 
 # Generate a list of Python programs to translate to Arduino C.
 # Not a recursive search - if recursive is needed, set it to True.
-if args.source_dir:
+if args.source_dir != '' and os.path.isdir(args.source_dir):
     py_prog_paths = [os.path.join(args.source_dir, py_prog)
                      for py_prog in glob.glob("*.py",
                                               root_dir=args.source_dir)]

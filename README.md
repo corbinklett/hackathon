@@ -149,26 +149,28 @@ For the purpose of the hackathon, we have deployed our MicroPython to Arduino C 
 
 ```
 $ python tools/micropy2c.py -h
-usage: micropy2c [-h] [-d] [-o OUTPUT_DIR] [-l {micropython,circuitpython}] [-u HOST] [-p PORT] [-v]
-                 {heltec-wireless-tracker,heltec-wifi-lora-v3} source_file_or_dir
+usage: micropy2c [-h] [-b {heltec-wireless-tracker,heltec-wifi-lora-v3}]
+                 [-s SOURCE_FILE] [-d SOURCE_DIR] [-o OUTPUT_DIR]
+                 [-l {micropython,circuitpython}] [-u HOST] [-p PORT] [-v]
 
-Translate MicroPython or CircuitPython program(s) to Arduino C SDK for ESP32 boards from Heltec Automation.
-
-positional arguments:
-  {heltec-wireless-tracker,heltec-wifi-lora-v3}
-                        Heltec board for which to generate Arduino C code
-  source_file_or_dir    Python program file or a dir containing Python programs
+Translate MicroPython or CircuitPython program(s) to Arduino C SDK for ESP32 boards
+from Heltec Automation.
 
 options:
   -h, --help            show this help message and exit
-  -d, --source-dir      Input is a directory containing Python source files   [Default: False]
-  -o OUTPUT_DIR, --output-dir OUTPUT_DIR
-                        Directory to store generated Arduino C files          [Default: /tmp/out]
-  -l {micropython,circuitpython}, --source-lang {micropython,circuitpython}
-                        Language of Python program                            [Default: micropython]
-  -u HOST, --host HOST  Translation API host                                  [Default: http://localhost]
-  -p PORT, --port PORT  Translation API port                                  [Default: 8080]
-  -v, --verbose         Prints response details.                              [Default: False]
+  -b, --board {heltec-wireless-tracker,heltec-wifi-lora-v3}
+                        Heltec board for which to generate Arduino C code
+  -s, --source-file SOURCE_FILE
+                        Path to Micro/Circuit Python program file
+  -d, --source-dir SOURCE_DIR
+                        Input is a directory containing Python source files
+  -o, --output-dir OUTPUT_DIR
+                        Directory to store generated Arduino C files
+  -l, --source-lang {micropython,circuitpython}
+                        Language of Python program
+  -u, --host HOST       Translation API host
+  -p, --port PORT       Translation API port
+  -v, --verbose         Prints response details.
 ```
 
 ## Sample examples
