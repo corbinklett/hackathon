@@ -61,7 +61,7 @@ parser.add_argument('-d', '--source-dir',
 parser.add_argument('-o', '--output-dir',
                     help='Directory to store generated Arduino C files',
                     default='/tmp/out',
-                    required=True)
+                    required=False)
 parser.add_argument('-l', '--source-lang',
                     help='Language of Python program',
                     choices=['micropython', 'circuitpython'],
@@ -77,6 +77,9 @@ args = parser.parse_args()
 # Sanity checks
 if args.source_file == '' and args.source_dir == '':
     print(f'ERROR: Must provide either source_file or source_dir')
+    sys.exit(1)
+if args.source_file != '' and args.source_dir != '':
+    print(f'ERROR: Only supply either source_file or source_dir as input, not both.')
     sys.exit(1)
 if args.output_dir == '':
     print(f'ERROR: Must provide output directory')
